@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { handleHttp } from "../utils/error.handle"
-import { insertProduct, getProducts, getProduct, updateProduct, deleteProduct } from "../services/product"
+import { insertProduct, getProducts, getProduct, updateProduct, deleteProduct, getActiveProducts } from "../services/product"
 
 const postItem = async ({ body }: Request, res: Response) => {
     try {
@@ -31,6 +31,15 @@ const getItem = async ({ params }: Request, res: Response) => {
     }
 }
 
+const getActiveItems = async (_: Request, res: Response) => {
+    try {
+        const response = await getActiveProducts();
+        res.send(response);
+    } catch (e) {
+        handleHttp(res, 'ERROR GETTING ACTIVE ITEMS');
+    }
+};
+
 const updateItem = async ({ params, body }: Request, res: Response) => {
     try {
         const { id } = params
@@ -52,4 +61,4 @@ const deleteItem = async ({ params }: Request, res: Response) => {
 }
 
 
-export { postItem, getItems, getItem, updateItem, deleteItem }
+export { postItem, getItems, getItem, getActiveItems, updateItem, deleteItem }

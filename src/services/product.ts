@@ -14,7 +14,12 @@ const getProducts = async () => {
 const getProduct = async (id: string) => {
     const responseItem = await ProductModel.findOne({ _id: id });
     return responseItem;
-}
+};
+
+const getActiveProducts = async () => {
+    const responseItem = await ProductModel.find({ isDeleted: false });
+    return responseItem;
+};
 
 const updateProduct = async (id: string, data: Product) => {
     const responseItem = await ProductModel.findOneAndUpdate({ _id: id }, data, { new: true });
@@ -26,4 +31,4 @@ const deleteProduct = async (id: string) => {
     return responseItem;
 }
 
-export { insertProduct, getProducts, getProduct, updateProduct, deleteProduct }
+export { insertProduct, getProducts, getProduct, getActiveProducts, updateProduct, deleteProduct }
